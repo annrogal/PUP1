@@ -5,7 +5,7 @@ Harmonogram
 04.12	Budowa uk³adu na p³ytce stykowej
 11.12	Projekt p³ytki PCB/ wykonanie p³ytki
 18.12	Programowanie mikrokontrolera
-08.01	Programowanie mikrokontrolera
-15.01	Prezentacja wyników pracy
-22.01	Wystawienie ocen
+07.01	Programowanie mikrokontrolera
+14.01	Prezentacja wyników pracy
+21.01	Wystawienie ocen
 
