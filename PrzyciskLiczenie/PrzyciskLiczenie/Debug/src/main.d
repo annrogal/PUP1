@@ -13,9 +13,7 @@ src/main.d src/main.o: ../src/main.c \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- ../src/HD44780.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h
+ ../src/hd44780.h ../src/hd44780.c ../src/HD44780.h
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -45,8 +43,8 @@ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
 
+../src/hd44780.h:
+
+../src/hd44780.c:
+
 ../src/HD44780.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h:
