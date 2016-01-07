@@ -4,10 +4,13 @@
 #include <util/delay.h>
 #include <math.h>
 #include <hd44780.h>
+#define  GRZALKA_1 PORTD|=(1<<PD3);
+#define  GRZALKA_0 PORTD&=~(1<<PD3);
 
 int main(void)
 {
-
+	DDRD=0x38;
+	PORTD=0xC7;
 	float pomiar;
 	char str[8];
 	float a=488.5/979;
@@ -45,7 +48,17 @@ int main(void)
 		LCD_WriteText(str);
 		LCD_WriteText(" oC");
 
+		if(pomiar<27.0)
+		{
+			GRZALKA_1;
+		}
+		else
+		{
+			GRZALKA_0;
+		}
 		_delay_ms(100);
+		
+		
 	}
 
 }
