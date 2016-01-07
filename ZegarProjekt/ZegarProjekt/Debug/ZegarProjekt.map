@@ -322,7 +322,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x38c
+.text           0x00000000      0x38e
  *(.vectors)
  .vectors       0x00000000       0x68 E:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega168pa/avr5/crtatmega168pa.o
                 0x00000000                __vector_default
@@ -430,26 +430,26 @@ END GROUP
  .text.LCD_Update_Time
                 0x00000192       0xae src/hd44780.o
                 0x00000192                LCD_Update_Time
- .text.main     0x00000240       0x5c src/main.o
+ .text.main     0x00000240       0x5e src/main.o
                 0x00000240                main
  .text.__vector_11
-                0x0000029c       0x86 src/main.o
-                0x0000029c                __vector_11
+                0x0000029e       0x86 src/main.o
+                0x0000029e                __vector_11
  .text.avr-libc
-                0x00000322       0x14 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x00000322                __itoa_ncheck
+                0x00000324       0x14 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x00000324                __itoa_ncheck
  .text.avr-libc
-                0x00000336       0x32 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x00000336                __utoa_ncheck
-                0x00000338                __utoa_common
+                0x00000338       0x32 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00000338                __utoa_ncheck
+                0x0000033a                __utoa_common
  .text.avr-libc
-                0x00000368       0x20 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00000368                strrev
-                0x00000388                . = ALIGN (0x2)
+                0x0000036a       0x20 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x0000036a                strrev
+                0x0000038a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000388        0x0 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x00000388                _exit
-                0x00000388                exit
+ .fini9         0x0000038a        0x0 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x0000038a                _exit
+                0x0000038a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -468,11 +468,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000388        0x4 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000038a        0x4 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000038c                _etext = .
+                0x0000038e                _etext = .
 
-.data           0x00800100       0x10 load address 0x0000038c
+.data           0x00800100       0x10 load address 0x0000038e
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -501,8 +501,8 @@ END GROUP
                 0x00800112                hours
  *(COMMON)
                 0x00800113                PROVIDE (__bss_end, .)
-                0x0000038c                __data_load_start = LOADADDR (.data)
-                0x0000039c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000038e                __data_load_start = LOADADDR (.data)
+                0x0000039e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800113        0x0
                 0x00800113                PROVIDE (__noinit_start, .)
@@ -584,20 +584,20 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xac8
+.debug_info     0x00000000      0xac7
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x907 src/hd44780.o
- .debug_info    0x00000907      0x1c1 src/main.o
+ .debug_info    0x00000000      0x906 src/hd44780.o
+ .debug_info    0x00000906      0x1c1 src/main.o
 
-.debug_abbrev   0x00000000      0x32a
+.debug_abbrev   0x00000000      0x333
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x232 src/hd44780.o
- .debug_abbrev  0x00000232       0xf8 src/main.o
+ .debug_abbrev  0x00000000      0x23b src/hd44780.o
+ .debug_abbrev  0x0000023b       0xf8 src/main.o
 
-.debug_line     0x00000000      0x819
+.debug_line     0x00000000      0x813
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x4ee src/hd44780.o
- .debug_line    0x000004ee      0x32b src/main.o
+ .debug_line    0x000004ee      0x325 src/main.o
 
 .debug_frame    0x00000000      0x15c
  *(.debug_frame)

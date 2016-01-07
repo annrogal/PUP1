@@ -43,7 +43,7 @@ void _LCD_Write(unsigned char dataToWrite)
 	LCD_E_PORT |= LCD_E;
 	_LCD_OutNibble(dataToWrite);
 	LCD_E_PORT &= ~LCD_E;
-	_delay_us(500);
+	_delay_us(100);
 }
 //-------------------------------------------------------------------------------------------------
 //

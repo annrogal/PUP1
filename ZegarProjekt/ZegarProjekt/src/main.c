@@ -35,16 +35,24 @@ int main(void) //petla glowna
 	
 	//LCD_CNTRL_PORT = (1<<SET_HOUR | 1<<SET_MINUTE);
 	
-	//######## konfiguracja timera ##############
-	//TIMSK0 |= (1<<TOIE0);           //Przerwanie overflow (przepe³nienie timera)
-	//TCCR0B |= (1<<CS02) | (1<<CS00); // Ÿród³em CLK, preskaler 1024
-	//TCNT0 = timer_start;//          //Pocz¹tkowa wartoœæ licznika
 	
-	TCCR1B = ((1<<CS12) | (1<<CS10)| (1<<WGM12));
 	OCR1A = 15625;
-	TIMSK0 = 1<<OCIE1A;
-	//###########################################
-	sei();//Globalne uruchomienie przerwañ
+
+	TCCR1B |= (1 << WGM12);
+	// Mode 4, CTC on OCR1A
+
+	TIMSK1 |= (1 << OCIE1A);
+	//Set interrupt on compare match
+
+	TCCR1B |= (1 << CS12) | (1 << CS10);
+	// set prescaler to 1024 and start the timer
+
+
+	sei();
+	// enable interrupts
+
+
+	
 	while(1)
 	{
 				
