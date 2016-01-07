@@ -322,7 +322,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x38e
+.text           0x00000000      0x398
  *(.vectors)
  .vectors       0x00000000       0x68 E:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega168pa/avr5/crtatmega168pa.o
                 0x00000000                __vector_default
@@ -410,46 +410,46 @@ END GROUP
                 0x000000a0       0x2a src/hd44780.o
                 0x000000a0                _LCD_OutNibble
  .text._LCD_Write
-                0x000000ca       0x22 src/hd44780.o
+                0x000000ca       0x2c src/hd44780.o
                 0x000000ca                _LCD_Write
  .text.LCD_WriteCommand
-                0x000000ec        0x6 src/hd44780.o
-                0x000000ec                LCD_WriteCommand
+                0x000000f6        0x6 src/hd44780.o
+                0x000000f6                LCD_WriteCommand
  .text.LCD_WriteData
-                0x000000f2        0x6 src/hd44780.o
-                0x000000f2                LCD_WriteData
+                0x000000fc        0x6 src/hd44780.o
+                0x000000fc                LCD_WriteData
  .text.LCD_WriteText
-                0x000000f8       0x1c src/hd44780.o
-                0x000000f8                LCD_WriteText
+                0x00000102       0x1c src/hd44780.o
+                0x00000102                LCD_WriteText
  .text.LCD_GoTo
-                0x00000114        0xe src/hd44780.o
-                0x00000114                LCD_GoTo
+                0x0000011e        0xe src/hd44780.o
+                0x0000011e                LCD_GoTo
  .text.LCD_Initalize
-                0x00000122       0x70 src/hd44780.o
-                0x00000122                LCD_Initalize
+                0x0000012c       0x70 src/hd44780.o
+                0x0000012c                LCD_Initalize
  .text.LCD_Update_Time
-                0x00000192       0xae src/hd44780.o
-                0x00000192                LCD_Update_Time
- .text.main     0x00000240       0x5e src/main.o
-                0x00000240                main
+                0x0000019c       0xae src/hd44780.o
+                0x0000019c                LCD_Update_Time
+ .text.main     0x0000024a       0x5e src/main.o
+                0x0000024a                main
  .text.__vector_11
-                0x0000029e       0x86 src/main.o
-                0x0000029e                __vector_11
+                0x000002a8       0x86 src/main.o
+                0x000002a8                __vector_11
  .text.avr-libc
-                0x00000324       0x14 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x00000324                __itoa_ncheck
+                0x0000032e       0x14 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x0000032e                __itoa_ncheck
  .text.avr-libc
-                0x00000338       0x32 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x00000338                __utoa_ncheck
-                0x0000033a                __utoa_common
+                0x00000342       0x32 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00000342                __utoa_ncheck
+                0x00000344                __utoa_common
  .text.avr-libc
-                0x0000036a       0x20 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x0000036a                strrev
-                0x0000038a                . = ALIGN (0x2)
+                0x00000374       0x20 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00000374                strrev
+                0x00000394                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000038a        0x0 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x0000038a                _exit
-                0x0000038a                exit
+ .fini9         0x00000394        0x0 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x00000394                _exit
+                0x00000394                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -468,11 +468,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000038a        0x4 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000394        0x4 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000038e                _etext = .
+                0x00000398                _etext = .
 
-.data           0x00800100       0x10 load address 0x0000038e
+.data           0x00800100       0x10 load address 0x00000398
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -501,8 +501,8 @@ END GROUP
                 0x00800112                hours
  *(COMMON)
                 0x00800113                PROVIDE (__bss_end, .)
-                0x0000038e                __data_load_start = LOADADDR (.data)
-                0x0000039e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000398                __data_load_start = LOADADDR (.data)
+                0x000003a8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800113        0x0
                 0x00800113                PROVIDE (__noinit_start, .)
@@ -584,10 +584,10 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xac7
+.debug_info     0x00000000      0xa91
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x906 src/hd44780.o
- .debug_info    0x00000906      0x1c1 src/main.o
+ .debug_info    0x00000000      0x8d0 src/hd44780.o
+ .debug_info    0x000008d0      0x1c1 src/main.o
 
 .debug_abbrev   0x00000000      0x333
  *(.debug_abbrev)
@@ -604,11 +604,11 @@ END GROUP
  .debug_frame   0x00000000       0xe0 src/hd44780.o
  .debug_frame   0x000000e0       0x7c src/main.o
 
-.debug_str      0x00000000     0x7183
+.debug_str      0x00000000     0x7174
  *(.debug_str)
- .debug_str     0x00000000     0x6c44 src/hd44780.o
-                               0x6d44 (size before relaxing)
- .debug_str     0x00006c44      0x53f src/main.o
+ .debug_str     0x00000000     0x6c35 src/hd44780.o
+                               0x6d35 (size before relaxing)
+ .debug_str     0x00006c35      0x53f src/main.o
                                0x7160 (size before relaxing)
 
 .debug_loc      0x00000000      0x2ab

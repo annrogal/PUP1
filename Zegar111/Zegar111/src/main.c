@@ -1,4 +1,4 @@
-#define F_CPU	4000000UL
+#define F_CPU	16000000
 #include <avr/delay.h>
 #include <avr/io.h>
 #include <string.h>
@@ -47,10 +47,20 @@ int main(void)
 	
 	LCD_CNTRL_PORT = (1<<SET_HOUR | 1<<SET_MINUTE);
 	
-	TCCR1B = (1<<CS12|1<<WGM12);
 	OCR1A = 15625;
-	TIMSK0 = 1<<OCIE1A;
+
+	TCCR1B |= (1 << WGM12);
+	// Mode 4, CTC on OCR1A
+
+	TIMSK1 |= (1 << OCIE1A);
+	//Set interrupt on compare match
+
+	TCCR1B |= (1 << CS12) | (1 << CS10);
+	// set prescaler to 1024 and start the timer
+
+
 	sei();
+	// enable interrupts
 	
 	while(1)
 	{
@@ -80,7 +90,7 @@ void LCD_send_command(unsigned char cmnd)
 	LCD_CNTRL_PORT |= (1<<LCD_ENABLE_PIN);
 	_delay_us(2);
 	LCD_CNTRL_PORT &= ~(1<<LCD_ENABLE_PIN);
-	_delay_us(100);
+	_delay_ms(10);
 }
 
 /* This function sends the data 'data' to the LCD module*/
@@ -93,7 +103,7 @@ void LCD_send_data(unsigned char data)
 	LCD_CNTRL_PORT |= (1<<LCD_ENABLE_PIN);
 	_delay_us(2);
 	LCD_CNTRL_PORT &= ~(1<<LCD_ENABLE_PIN);
-	_delay_us(100);
+	_delay_ms(1000);
 }
 
 void LCD_init()
@@ -117,7 +127,7 @@ void LCD_goto(unsigned char y, unsigned char x)
 	unsigned char firstAddress[] = {0x80,0xC0,0x94,0xD4};
 	
 	LCD_send_command(firstAddress[y-1] + x-1);
-	_delay_ms(10);
+	_delay_us(10);
 }
 
 void LCD_print(char *string)
@@ -132,7 +142,7 @@ void LCD_print(char *string)
 }
 void LCD_update_time()
 {
-	unsigned char temp;
+	unsigned char temp[32];
 	
 	LCD_goto(2,4);
 	

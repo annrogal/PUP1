@@ -1,4 +1,4 @@
-#define F_PCU 16000000
+//#define F_PCU 16000000
 #include <hd44780.h>
 #include <avr/io.h>
 #include <util/delay.h>

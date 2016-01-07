@@ -97,6 +97,8 @@
 //
 //-------------------------------------------------------------------------------------------------
 
+void _LCD_Write(unsigned char);
+void _LCD_OutNibble(unsigned char);
 void LCD_WriteCommand(unsigned char);
 unsigned char LCD_ReadStatus(void);
 void LCD_WriteData(unsigned char);

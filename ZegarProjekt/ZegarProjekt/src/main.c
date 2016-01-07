@@ -71,6 +71,7 @@ int main(void) //petla glowna
 			minutes = 0;
 		}
 		
+		
 	}
 	
 }

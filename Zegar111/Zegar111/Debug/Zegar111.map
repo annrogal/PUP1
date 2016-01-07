@@ -291,7 +291,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x3c0
+.text           0x00000000      0x414
  *(.vectors)
  .vectors       0x00000000       0x68 E:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega168pa/avr5/crtatmega168pa.o
                 0x00000000                __vector_default
@@ -376,43 +376,43 @@ END GROUP
                 0x000000a0                . = ALIGN (0x2)
  *(.text.*)
  .text.LCD_send_command
-                0x000000a0       0x1a src/main.o
+                0x000000a0       0x1e src/main.o
                 0x000000a0                LCD_send_command
  .text.LCD_send_data
-                0x000000ba       0x1a src/main.o
-                0x000000ba                LCD_send_data
+                0x000000be       0x24 src/main.o
+                0x000000be                LCD_send_data
  .text.LCD_init
-                0x000000d4       0x3a src/main.o
-                0x000000d4                LCD_init
+                0x000000e2       0x3a src/main.o
+                0x000000e2                LCD_init
  .text.LCD_goto
-                0x0000010e       0x44 src/main.o
-                0x0000010e                LCD_goto
+                0x0000011c       0x40 src/main.o
+                0x0000011c                LCD_goto
  .text.LCD_print
-                0x00000152       0x2a src/main.o
-                0x00000152                LCD_print
- .text.main     0x0000017c       0x62 src/main.o
-                0x0000017c                main
+                0x0000015c       0x2a src/main.o
+                0x0000015c                LCD_print
+ .text.main     0x00000186       0x70 src/main.o
+                0x00000186                main
  .text.LCD_update_time
-                0x000001de       0xf2 src/main.o
-                0x000001de                LCD_update_time
+                0x000001f6      0x12e src/main.o
+                0x000001f6                LCD_update_time
  .text.__vector_11
-                0x000002d0       0x86 src/main.o
-                0x000002d0                __vector_11
+                0x00000324       0x86 src/main.o
+                0x00000324                __vector_11
  .text.avr-libc
-                0x00000356       0x14 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x00000356                __itoa_ncheck
+                0x000003aa       0x14 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x000003aa                __itoa_ncheck
  .text.avr-libc
-                0x0000036a       0x32 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x0000036a                __utoa_ncheck
-                0x0000036c                __utoa_common
+                0x000003be       0x32 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x000003be                __utoa_ncheck
+                0x000003c0                __utoa_common
  .text.avr-libc
-                0x0000039c       0x20 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x0000039c                strrev
-                0x000003bc                . = ALIGN (0x2)
+                0x000003f0       0x20 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x000003f0                strrev
+                0x00000410                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000003bc        0x0 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x000003bc                _exit
-                0x000003bc                exit
+ .fini9         0x00000410        0x0 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x00000410                _exit
+                0x00000410                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -431,11 +431,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000003bc        0x4 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000410        0x4 e:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000003c0                _etext = .
+                0x00000414                _etext = .
 
-.data           0x00800100       0x10 load address 0x000003c0
+.data           0x00800100       0x10 load address 0x00000414
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -462,8 +462,8 @@ END GROUP
                 0x00800112                hours
  *(COMMON)
                 0x00800113                PROVIDE (__bss_end, .)
-                0x000003c0                __data_load_start = LOADADDR (.data)
-                0x000003d0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000414                __data_load_start = LOADADDR (.data)
+                0x00000424                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800113        0x0
                 0x00800113                PROVIDE (__noinit_start, .)
@@ -542,30 +542,30 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x85a
+.debug_info     0x00000000      0x860
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x85a src/main.o
+ .debug_info    0x00000000      0x860 src/main.o
 
-.debug_abbrev   0x00000000      0x24b
+.debug_abbrev   0x00000000      0x25b
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x24b src/main.o
+ .debug_abbrev  0x00000000      0x25b src/main.o
 
-.debug_line     0x00000000      0x509
+.debug_line     0x00000000      0x510
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x509 src/main.o
+ .debug_line    0x00000000      0x510 src/main.o
 
-.debug_frame    0x00000000      0x10c
+.debug_frame    0x00000000      0x114
  *(.debug_frame)
- .debug_frame   0x00000000      0x10c src/main.o
+ .debug_frame   0x00000000      0x114 src/main.o
 
-.debug_str      0x00000000     0x6d9b
+.debug_str      0x00000000     0x6d9a
  *(.debug_str)
- .debug_str     0x00000000     0x6d9b src/main.o
-                               0x6ea5 (size before relaxing)
+ .debug_str     0x00000000     0x6d9a src/main.o
+                               0x6ea4 (size before relaxing)
 
-.debug_loc      0x00000000      0x41e
+.debug_loc      0x00000000      0x35e
  *(.debug_loc)
- .debug_loc     0x00000000      0x41e src/main.o
+ .debug_loc     0x00000000      0x35e src/main.o
 
 .debug_macinfo
  *(.debug_macinfo)
