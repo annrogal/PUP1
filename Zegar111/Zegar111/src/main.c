@@ -36,9 +36,12 @@ ISR(TIMER1_COMPA_vect);
 #define SET_HOUR		PB0
 #define SET_MINUTE		PB1
 
+
 int main(void)
 {
-	unsigned char i;
+	char i;
+	DDRB=0b11111100;
+	PORTB=0b00000011;
 	
 	LCD_init();
 	LCD_print("czas");
@@ -142,7 +145,7 @@ void LCD_print(char *string)
 }
 void LCD_update_time()
 {
-	unsigned char temp[32];
+	char temp[32];
 	
 	LCD_goto(2,4);
 	

@@ -10,12 +10,14 @@ src/main.d src/main.o: ../src/main.c \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\wdt.h \
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h \
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  ../src/hd44780.h
 
@@ -41,17 +43,21 @@ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
+e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
+
+e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\wdt.h:
+
+e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
+
+e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h:
+
+e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h:
+
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h:
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h:
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
 

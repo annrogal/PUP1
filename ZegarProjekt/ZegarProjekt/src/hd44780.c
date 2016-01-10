@@ -8,6 +8,8 @@
 // Funkcja wystawiaj¹ca pó³bajt na magistralê danych
 //
 //-------------------------------------------------------------------------------------------------
+
+
 void _LCD_OutNibble(unsigned char nibbleToWrite)
 {
 	if(nibbleToWrite & 0x01)
@@ -45,6 +47,7 @@ void _LCD_Write(unsigned char dataToWrite)
 	LCD_E_PORT &= ~LCD_E;
 	_delay_ms(500);
 }
+
 //-------------------------------------------------------------------------------------------------
 //
 // Funkcja zapisu rozkazu do wyœwietlacza
@@ -54,7 +57,6 @@ void LCD_WriteCommand(unsigned char commandToWrite)
 {
 	LCD_RS_PORT &= ~LCD_RS;
 	_LCD_Write(commandToWrite);
-	
 }
 //-------------------------------------------------------------------------------------------------
 //
@@ -120,7 +122,7 @@ void LCD_Initalize(void)
 	LCD_DB7_DIR |= LCD_DB7; //
 	LCD_E_DIR     |= LCD_E;   //
 	LCD_RS_DIR     |= LCD_RS;  //
-	_delay_ms(15); // oczekiwanie na ustalibizowanie siê napiecia zasilajacego
+	_delay_ms(1); // oczekiwanie na ustalibizowanie siê napiecia zasilajacego
 	LCD_RS_PORT &= ~LCD_RS; // wyzerowanie linii RS
 	LCD_E_PORT &= ~LCD_E;  // wyzerowanie linii E
 
@@ -129,7 +131,7 @@ void LCD_Initalize(void)
 		LCD_E_PORT |= LCD_E; //  E = 1
 		_LCD_OutNibble(0x03); // tryb 8-bitowy
 		LCD_E_PORT &= ~LCD_E; // E = 0
-		_delay_ms(5); // czekaj 5ms
+		_delay_ms(1); // czekaj 5ms
 	}
 
 	LCD_E_PORT |= LCD_E; // E = 1
@@ -147,29 +149,29 @@ void LCD_Initalize(void)
 void LCD_Update_Time()
 {
 	
-	char bufor[32];
+	char a[32];
 	unsigned char hours = 0;
 	unsigned char minutes = 0;
 	unsigned char seconds = 0;
 	
-	LCD_GoTo(1,1);
+	LCD_GoTo(0,1);
 	
-	itoa(hours/10,bufor,10);
-	LCD_WriteText(bufor);
-	itoa(hours%10,bufor,10);
-	LCD_WriteText(bufor);
+	itoa(hours/10,a,10);
+	LCD_WriteText(a);
+	itoa(hours%10,a,10);
+	LCD_WriteText(a);
 	LCD_WriteText(":");
 	
-	itoa(minutes/10,bufor,10);
-	LCD_WriteText(bufor);
-	itoa((minutes%10),bufor,10);
-	LCD_WriteText(bufor);
+	itoa(minutes/10,a,10);
+	LCD_WriteText(a);
+	itoa((minutes%10),a,10);
+	LCD_WriteText(a);
 	LCD_WriteText(":");
 	
-	itoa(seconds/10,bufor,10);
-	LCD_WriteText(bufor);
-	itoa(seconds%10,bufor,10);
-	LCD_WriteText(bufor);
+	itoa(seconds/10,a,10);
+	LCD_WriteText(a);
+	itoa(seconds%10,a,10);
+	LCD_WriteText(a);
 }
 //-------------------------------------------------------------------------------------------------
 //
