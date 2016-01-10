@@ -34,6 +34,33 @@ sei();
 
 
 	while(1);
+	{
+		float a=488.5/979;
+		float b=511-a*1023;
+		
+		pomiar = a*ADCW + b;  // bity na volty
+		
+		//pomiar
+		//pomiar
+
+		
+		dtostrf(pomiar, 8, 1, str);
+		
+		LCD_GoTo(5,1);
+		LCD_WriteText(str);
+		LCD_WriteText(" oC");
+
+		if(pomiar<27.0)
+		{
+			GRZALKA_1;
+		}
+		else
+		{
+			GRZALKA_0;
+		}
+		//_delay_ms(1000);
+		
+	}
 	
 
 		
@@ -43,33 +70,4 @@ sei();
 		
 		
 		
-}
-ISR(ADC_vect)
-{
-	float a=488.5/979;
-	float b=511-a*1023;
-	
-	pomiar = a*ADCH + b;  // bity na volty
-	
-	//pomiar
-	//pomiar
-
-	
-	dtostrf(pomiar, 8, 1, str);
-	
-	LCD_GoTo(5,1);
-	LCD_WriteText(str);
-	LCD_WriteText(" oC");
-
-	if(pomiar<27.0)
-	{
-		GRZALKA_1;
-	}
-	else
-	{
-		GRZALKA_0;
-	}
-	//_delay_ms(1000);
-	
-	ADCSRA |= (1 << ADSC); // rozpocznij przetwarzanie
 }

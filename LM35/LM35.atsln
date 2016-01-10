@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "LM35", "LM35\LM35.cproj", "{A717F42A-E088-4C56-811F-B9D148ABE220}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A717F42A-E088-4C56-811F-B9D148ABE220}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A717F42A-E088-4C56-811F-B9D148ABE220}.Debug|AVR.Build.0 = Debug|AVR
+		{A717F42A-E088-4C56-811F-B9D148ABE220}.Release|AVR.ActiveCfg = Release|AVR
+		{A717F42A-E088-4C56-811F-B9D148ABE220}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
