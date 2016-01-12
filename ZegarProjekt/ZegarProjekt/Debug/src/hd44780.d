@@ -1,8 +1,4 @@
-src/hd44780.d src/hd44780.o: ../src/hd44780.c \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h \
- ../src/HD44780.h \
+src/hd44780.d src/hd44780.o: ../src/hd44780.c ../src/HD44780.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -15,13 +11,8 @@ src/hd44780.d src/hd44780.o: ../src/hd44780.c \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stddef.h:
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
+ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h
 
 ../src/HD44780.h:
 
@@ -50,3 +41,5 @@ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h:
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
+
+e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:

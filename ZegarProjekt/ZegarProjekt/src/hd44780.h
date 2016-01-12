@@ -1,4 +1,14 @@
 //-------------------------------------------------------------------------------------------------
+// Wyúwietlacz alfanumeryczny ze sterownikiem HD44780
+// Sterowanie w trybie 4-bitowym bez odczytu flagi zajÍtoúci
+// z dowolnym przypisaniem sygna≥Ûw sterujπcych
+// Plik : HD44780.h
+// Mikrokontroler : Atmel AVR
+// Kompilator : avr-gcc
+// Autor : Rados≥aw KwiecieÒ
+// èrÛd≥o : http://radzio.dxp.pl/hd44780/
+// Data : 24.03.2007
+//-------------------------------------------------------------------------------------------------
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -9,36 +19,40 @@
 // Moøna zmieniÊ stosownie do potrzeb.
 //
 //-------------------------------------------------------------------------------------------------
+#define LCD_RS_DIR		DDRD
+#define LCD_RS_PORT 	PORTD
+#define LCD_RS_PIN		PIND
+#define LCD_RS			(1 << PD4)
 
-#define LCD_RS_DIR DDRD
-#define LCD_RS_PORT PORTD
-#define LCD_RS_PIN PIND
-#define LCD_RS (1 << PD4)
+#define LCD_RW_DIR		DDRD
+#define LCD_RW_PORT		PORTD
+#define LCD_RW_PIN		PIND
+#define LCD_RW			(1 << PD6)
 
-#define LCD_E_DIR DDRD
-#define LCD_E_PORT PORTD
-#define LCD_E_PIN PIND
-#define LCD_E (1 << PD5)
+#define LCD_E_DIR		DDRD
+#define LCD_E_PORT		PORTD
+#define LCD_E_PIN		PIND
+#define LCD_E			(1 << PD5)
 
-#define LCD_DB4_DIR DDRC
-#define LCD_DB4_PORT PORTC
-#define LCD_DB4_PIN PINC
-#define LCD_DB4 (1 << PC1)
+#define LCD_DB4_DIR		DDRC
+#define LCD_DB4_PORT	PORTC
+#define LCD_DB4_PIN		PINC
+#define LCD_DB4			(1 << PC1)
 
-#define LCD_DB5_DIR DDRC
-#define LCD_DB5_PORT PORTC
-#define LCD_DB5_PIN PINC
-#define LCD_DB5 (1 << PC2)
+#define LCD_DB5_DIR		DDRC
+#define LCD_DB5_PORT	PORTC
+#define LCD_DB5_PIN		PINC
+#define LCD_DB5			(1 << PC2)
 
-#define LCD_DB6_DIR DDRC
-#define LCD_DB6_PORT PORTC
-#define LCD_DB6_PIN PINC
-#define LCD_DB6 (1 << PC3)
+#define LCD_DB6_DIR		DDRC
+#define LCD_DB6_PORT	PORTC
+#define LCD_DB6_PIN		PINC
+#define LCD_DB6			(1 << PC3)
 
-#define LCD_DB7_DIR DDRC
-#define LCD_DB7_PORT PORTC
-#define LCD_DB7_PIN PINC
-#define LCD_DB7 (1 << PC4)
+#define LCD_DB7_DIR		DDRC
+#define LCD_DB7_PORT	PORTC
+#define LCD_DB7_PIN		PINC
+#define LCD_DB7			(1 << PC4)
 
 //-------------------------------------------------------------------------------------------------
 //
@@ -88,8 +102,6 @@
 //
 //-------------------------------------------------------------------------------------------------
 
-void _LCD_OutNibble(unsigned char);
-void _LCD_Write(unsigned char);
 void LCD_WriteCommand(unsigned char);
 unsigned char LCD_ReadStatus(void);
 void LCD_WriteData(unsigned char);
@@ -99,7 +111,6 @@ void LCD_GoTo(unsigned char, unsigned char);
 void LCD_Clear(void);
 void LCD_Home(void);
 void LCD_Initalize(void);
-void LCD_Update_Time(void);
 
 //-------------------------------------------------------------------------------------------------
 //

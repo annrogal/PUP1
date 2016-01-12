@@ -15,14 +15,7 @@ src/main.d src/main.o: ../src/main.c \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- ../src/hd44780.h ../src/ASF/common/utils/interrupt.h \
- ../src/ASF/common/utils/parts.h \
- ../src/ASF/common/utils/interrupt/interrupt_avr8.h \
- ../src/ASF/mega/utils/compiler.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdbool.h \
- ../src/ASF/mega/utils/progmem.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
- e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h
+ ../src/hd44780.h
 
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -57,19 +50,3 @@ e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
 e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
 
 ../src/hd44780.h:
-
-../src/ASF/common/utils/interrupt.h:
-
-../src/ASF/common/utils/parts.h:
-
-../src/ASF/common/utils/interrupt/interrupt_avr8.h:
-
-../src/ASF/mega/utils/compiler.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdbool.h:
-
-../src/ASF/mega/utils/progmem.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
-
-e:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
