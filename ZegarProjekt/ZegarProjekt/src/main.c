@@ -3,22 +3,26 @@
 #include <util/delay.h>
 #include <avr/io.h>
 #include <string.h>
+#include <interrupt.h>
 #include <avr/interrupt.h>
 #include <hd44780.h>
 #include <math.h>
 #include <stdlib.h>
 
 
-unsigned char hours = 0;
+unsigned char hours = 0;    // unsigned char - ca³kowite od 0 do 255;
 unsigned char minutes = 0;
 unsigned char seconds = 0;
-unsigned long obieg;
-float pomiar;
+float pomiar;              // float - rzeczywisty, do 6 miejsc precyzji
 char str[8];
-char time[] = "00:00:00";
-
+char time[] = "00:00:00";  // char - ca³kowity od -128 do 127;
+int czas_1;
+int czas_2;
+volatile uint8_t i;
 ISR(TIMER1_COMPA_vect);
 
+#define LED_1 PORTD|=(1<<PD7);
+#define LED_0 PORTD&=~(1<<PD7);
 #define SET_HOUR	PB0
 #define SET_MINUTE	PB1
 #define  SW1_1 PORTD|=(1<<PD0);
@@ -34,8 +38,8 @@ ISR(TIMER1_COMPA_vect);
 int main(void) //petla glowna
 {
 	
-	DDRD=0x7F;
-	PORTD=0x70;
+	DDRD=0xFF;
+	PORTD=0x80;
 		
 	LCD_Initalize();
 	LCD_WriteText("czas");
@@ -54,12 +58,21 @@ int main(void) //petla glowna
 	TCCR1B |= (1 << CS12) | (1 << CS10);
 	// set prescaler to 1024 and start the timer
 	sei();
-	// enable interrupts
+	
+	//-----------------------------------------------------------------------------------------------
+	//                   PWM Diody LED
+	TCCR2B|=(1<<COM2B1)|(1<<WGM22);
+	TCCR2B|=(1<<CS20)|(1<<CS21)|(1<<CS22);
+	OCR2B=18;
+	OCR2B=255;
+	
+	
+	           
 	while(1)
 	{
-		if(!(PINB & (1<<SET_HOUR)))
+		if(!(PINB & (1<<SET_HOUR)))   // ! - negacja
 		{
-			hours++;
+			hours++;                  // ++ - zwiêksza o 1
 			if(hours > 23)
 			hours = 0;
 		}
@@ -69,33 +82,52 @@ int main(void) //petla glowna
 			if(minutes > 59)
 			minutes = 0;
 		}
-		//_delay_ms(250);
+		_delay_ms(250);
 		
-		if(time == "07:30:00")
+		if(hours==7 & minutes==30)
 		{
 			SW1_1;
 		}
-		if(time == "19:00:00")
+		if(hours==19 & minutes==00)
 		{
 			SW1_0;
 		}
-		if(time == "08:00:00")
+		if(hours==8 & minutes==00)
 		{
 			SW2_1;
 		}
-		if(time == "19:30:00")
+		if(hours==19 & minutes==30)
 		{
 			SW2_0;
 		}
-		if(time == "08:30:00")
+		if(hours==8 & minutes==30)
 		{
 			SW3_1;
 		}
-		if(time == "20:00:00")
+		if(hours==20 & minutes==0)
 		{
 			SW3_0;			
 		}
+		LED_1;
+		
+		uint8_t i;
+		for(i=0; i<255; i++)
+		{
+			OCR2B=i;
+		}
+		for(i=255; i; i--)
+		{
+			OCR2B=i;
+		}
+	
+		
 	}
+	
+	//--------------------
+	
+
+
+	
 
 }
 void LCD_update_time()
@@ -157,25 +189,33 @@ ISR(TIMER1_COMPA_vect)
 		float a=488.5/979;
 		float b=511-a*1023;
 		
-		pomiar = a*ADC + b;  // bity na volty
+		pomiar = a*ADC + b;  
 
-		//pomiar
-		//pomiar
+		
 		dtostrf(pomiar, 8, 1, str);
 		LCD_GoTo(0,1);
 		LCD_WriteText(str);
 		LCD_WriteText(" oC");
 
-		if(pomiar<17.0)
+	czas_1++;
+	if(pomiar<16.0)
+	{
+		if(czas_1==60)
 		{
+			czas_1=0;
 			GRZALKA_1;
 		}
-		else
-		{
+	}
+	if(pomiar>16.0)
+	{
+		
 			GRZALKA_0;
-		}
-}
 
+	}
+		
+	
+		
+}
 
 
 
