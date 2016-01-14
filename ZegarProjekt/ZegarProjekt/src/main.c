@@ -13,13 +13,14 @@
 unsigned char hours = 0;    // unsigned char - ca³kowite od 0 do 255;
 unsigned char minutes = 0;
 unsigned char seconds = 0;
-float pomiar;              // float - rzeczywisty, do 6 miejsc precyzji
+float pomiar;  
+float pomiar_old;           // float - rzeczywisty, do 6 miejsc precyzji
+float pomiar_sr;
 char str[8];
 char time[] = "00:00:00";  // char - ca³kowity od -128 do 127;
 int czas_1;
-int czas_2;
-volatile uint8_t i;
-ISR(TIMER1_COMPA_vect);
+int pomiar_takt=0;
+volatile uint8_t z=0 ;   
 
 #define LED_1 PORTD|=(1<<PD7);
 #define LED_0 PORTD&=~(1<<PD7);
@@ -33,6 +34,7 @@ ISR(TIMER1_COMPA_vect);
 #define SW3_0 PORTD&=~(1<<PD2);
 #define  GRZALKA_1 PORTD|=(1<<PD3);
 #define  GRZALKA_0 PORTD&=~(1<<PD3);
+volatile uint8_t GRZALKA;
 
 
 int main(void) //petla glowna
@@ -48,7 +50,7 @@ int main(void) //petla glowna
 	//LCD_GoTo(0,1);
 	//LCD_WriteText("Temperatura");
 	
-	 //--------------------------------------------------------------------------------------------	
+	//--------------------------------------------------------------------------------------------	
 	PINB = (1<<SET_HOUR | 1<<SET_MINUTE);
 	TCCR1B |= (1 << WGM12);
 	// Mode 4, CTC on OCR1A
@@ -59,20 +61,41 @@ int main(void) //petla glowna
 	// set prescaler to 1024 and start the timer
 	sei();
 	
-	//-----------------------------------------------------------------------------------------------
-	//                   PWM Diody LED
-	TCCR2B|=(1<<COM2B1)|(1<<WGM22);
-	TCCR2B|=(1<<CS20)|(1<<CS21)|(1<<CS22);
-	OCR2B=18;
-	OCR2B=255;
 	
+	ADMUX=(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);  // wybór kana³u ADC0
+	ADMUX |= (1 << REFS0);  // ustaw zewnetrzne napiecie
+	ADMUX &= ~(0 << REFS1); // odniesienia na AVCC
+
+	ADCSRA=(1<<ADEN)			 //ustawienie bity ADEN=1 - wlaczenie
+	|(1<<ADPS0)			 // ustawienie preskalera na 128 // ustawienie
+	|(1<<ADPS1)			 // czestotliwosc taktowania przetwornika A/C, f=16Mhz/128
+	|(1<<ADPS2);
+	ADCSRA |= (1 << ADSC); // rozpocznij przetwarzanie
 	
-	           
+//-----------------------------------------------------------------------------------------------
+// 	// /                  PWM Diody LED
+TCCR0A |= (1<<WGM01) | (1<<WGM00); //tryb PWM
+TCCR0A |= (1<<COM0A1)| (1<<COM0A0);
+TCCR0A |= (1<<CS00)  | (1<<CS02); //preskaler 1024
+OCR0A = 0;
+OCR0A =255;
+	
+	float a=488.5/979;
+	float b=511-a*1023;
+	pomiar = a*ADC + b;
+	pomiar_sr=pomiar;
+	dtostrf(pomiar_sr, 8, 1, str);
+	LCD_GoTo(0,1);
+	LCD_WriteText(str);
+	LCD_WriteText(" oC");
+	 
+	 
+	      
 	while(1)
 	{
 		if(!(PINB & (1<<SET_HOUR)))   // ! - negacja
 		{
-			hours++;                  // ++ - zwiêksza o 1
+			hours++;                 // ++ - zwiêksza o 1
 			if(hours > 23)
 			hours = 0;
 		}
@@ -108,27 +131,28 @@ int main(void) //petla glowna
 		{
 			SW3_0;			
 		}
-		LED_1;
-		
-		uint8_t i;
-		for(i=0; i<255; i++)
-		{
-			OCR2B=i;
-		}
-		for(i=255; i; i--)
-		{
-			OCR2B=i;
-		}
+//-------------------------------------------------------------------------		
+		//LED_1; // do sterowania ledami
 	
+//-------------------------------------------------------------------------
+		if(pomiar_takt>=30)
+		{
+			
+			pomiar_old=pomiar;			
+			pomiar_sr=(pomiar+pomiar_old)/2;
+			
+					
+			dtostrf(pomiar_sr, 8, 1, str);
+			LCD_GoTo(0,1);
+			LCD_WriteText(str);
+			LCD_WriteText(" oC");
+			
+			pomiar_takt=0;
+			
+		}
 		
 	}
-	
-	//--------------------
-	
-
-
-	
-
+		
 }
 void LCD_update_time()
 {
@@ -155,6 +179,20 @@ void LCD_update_time()
 }
 //############ Procedura obs³ugi przerwania od przepe³nienia timera ############
 
+ISR(TIMER0_OVF_vect)
+{
+		 
+		for(z = 0; z<255; z++)
+		{
+			OCR0A = z;
+			
+		}
+		for(z = 255; z; z--)
+		{
+			OCR0A = z;
+			
+		}
+}
 ISR(TIMER1_COMPA_vect)
 {
  	seconds++;
@@ -173,48 +211,43 @@ ISR(TIMER1_COMPA_vect)
  	hours = 0;
  	
  	LCD_update_time();
+	 
+	pomiar_takt++;
+
+	ADCSRA |= (1 << ADSC); // rozpocznij przetwarzanie
+	float a=488.5/979;
+	float b=511-a*1023;
+	pomiar = a*ADC + b;
+		
+		
+//----------------------------------------------------------------------------------------------------
+//  obsluga grzalki 
 	
-		
-		ADMUX=(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);  // wybór kana³u ADC0
-		ADMUX |= (1 << REFS0);  // ustaw zewnetrzne napiecie
-		ADMUX &= ~(0 << REFS1); // odniesienia na AVCC
-
-		ADCSRA=(1<<ADEN)			 //ustawienie bity ADEN=1 - wlaczenie
-		|(1<<ADPS0)			 // ustawienie preskalera na 128 // ustawienie
-		|(1<<ADPS1)			 // czestotliwosc taktowania przetwornika A/C, f=16Mhz/128
-		|(1<<ADPS2);
-		ADCSRA |= (1 << ADSC); // rozpocznij przetwarzanie
-		
-		
-		float a=488.5/979;
-		float b=511-a*1023;
-		
-		pomiar = a*ADC + b;  
-
-		
-		dtostrf(pomiar, 8, 1, str);
-		LCD_GoTo(0,1);
-		LCD_WriteText(str);
-		LCD_WriteText(" oC");
-
-	czas_1++;
-	if(pomiar<16.0)
+	if(pomiar_sr<22.5 && GRZALKA==0)
 	{
-		if(czas_1==60)
-		{
-			czas_1=0;
-			GRZALKA_1;
-		}
+		czas_1++;
 	}
-	if(pomiar>16.0)
+	else if(pomiar_sr>22.5 && GRZALKA==1)
 	{
-		
-			GRZALKA_0;
-
+		czas_1++;
 	}
-		
+	else
+	czas_1=0;
 	
-		
+			if(czas_1>=30)
+			{
+				czas_1=0;
+				if(GRZALKA==0)
+				{
+				GRZALKA_1;
+				GRZALKA=1;
+				}
+				else
+				{
+				GRZALKA_0;
+				GRZALKA=0;
+				}
+			}
 }
 
 
