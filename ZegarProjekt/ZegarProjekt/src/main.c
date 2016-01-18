@@ -13,6 +13,7 @@
 unsigned char hours = 0;    // unsigned char - ca³kowite od 0 do 255;
 unsigned char minutes = 0;
 unsigned char seconds = 0;
+float odliczanie;
 float pomiar;  
 float pomiar_old;           // float - rzeczywisty, do 6 miejsc precyzji
 float pomiar_sr;
@@ -20,10 +21,12 @@ char str[8];
 char time[] = "00:00:00";  // char - ca³kowity od -128 do 127;
 int czas_1;
 int pomiar_takt=0;
-volatile uint8_t z=0 ;   
+volatile uint8_t d=0 ;
+bool odliczaniesek=true;
+ 
 
-#define LED_1 PORTD|=(1<<PD7);
-#define LED_0 PORTD&=~(1<<PD7);
+//#define LED_1 PORTD|=(1<<PD6);
+//#define LED_0 PORTD&=~(1<<PD6);
 #define SET_HOUR	PB0
 #define SET_MINUTE	PB1
 #define  SW1_1 PORTD|=(1<<PD0);
@@ -35,13 +38,15 @@ volatile uint8_t z=0 ;
 #define  GRZALKA_1 PORTD|=(1<<PD3);
 #define  GRZALKA_0 PORTD&=~(1<<PD3);
 volatile uint8_t GRZALKA;
+int timer0=0;
+
 
 
 int main(void) //petla glowna
 {
 	
 	DDRD=0xFF;
-	PORTD=0x80;
+	PORTD=0x40;
 		
 	LCD_Initalize();
 	LCD_WriteText("czas");
@@ -59,7 +64,7 @@ int main(void) //petla glowna
 	//Set interrupt on compare match
 	TCCR1B |= (1 << CS12) | (1 << CS10);
 	// set prescaler to 1024 and start the timer
-	sei();
+	
 	
 	
 	ADMUX=(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);  // wybór kana³u ADC0
@@ -74,11 +79,24 @@ int main(void) //petla glowna
 	
 //-----------------------------------------------------------------------------------------------
 // 	// /                  PWM Diody LED
-TCCR0A |= (1<<WGM01) | (1<<WGM00); //tryb PWM
-TCCR0A |= (1<<COM0A1)| (1<<COM0A0);
-TCCR0A |= (1<<CS00)  | (1<<CS02); //preskaler 1024
-OCR0A = 0;
-OCR0A =255;
+DDRD |= (1 << DDD6);
+// PD6 is now an output
+
+OCR0A = 255;
+// set PWM for duty cycle
+
+TCCR0A |= (1 << COM0A1)|(1<<COM0A0);
+// set none-inverting mode
+
+TCCR0A |= (1 << WGM01) | (1 << WGM00);
+// set fast PWM Mode
+
+TCCR0B |= (1 << CS01);
+// set prescaler to 8 and starts PWM
+	
+sei();
+	
+	_delay_ms(1000);
 	
 	float a=488.5/979;
 	float b=511-a*1023;
@@ -88,11 +106,40 @@ OCR0A =255;
 	LCD_GoTo(0,1);
 	LCD_WriteText(str);
 	LCD_WriteText(" oC");
-	 
-	 
-	      
+	 	      
 	while(1)
 	{
+		
+		if (odliczaniesek)
+		{
+			pomiar_takt++;
+
+			ADCSRA |= (1 << ADSC); // rozpocznij przetwarzanie
+			float a=488.5/979;
+			float b=511-a*1023;
+			pomiar = a*ADC + b;
+			
+			//d--;
+			//if(d==0)
+			//{
+				//d=0;
+			//}
+			//
+			//
+			//
+			//odliczaniesek=false;
+		}
+		for(d = 0; d<255; d++)
+		{
+			OCR0A = d;
+			_delay_ms(50);
+		}
+		for(d = 255; d; d--)
+		{
+			OCR0A = d;
+			_delay_ms(50);
+
+		}
 		if(!(PINB & (1<<SET_HOUR)))   // ! - negacja
 		{
 			hours++;                 // ++ - zwiêksza o 1
@@ -105,7 +152,7 @@ OCR0A =255;
 			if(minutes > 59)
 			minutes = 0;
 		}
-		_delay_ms(250);
+		
 		
 		if(hours==7 & minutes==30)
 		{
@@ -179,20 +226,7 @@ void LCD_update_time()
 }
 //############ Procedura obs³ugi przerwania od przepe³nienia timera ############
 
-ISR(TIMER0_OVF_vect)
-{
-		 
-		for(z = 0; z<255; z++)
-		{
-			OCR0A = z;
-			
-		}
-		for(z = 255; z; z--)
-		{
-			OCR0A = z;
-			
-		}
-}
+
 ISR(TIMER1_COMPA_vect)
 {
  	seconds++;
@@ -212,13 +246,9 @@ ISR(TIMER1_COMPA_vect)
  	
  	LCD_update_time();
 	 
-	pomiar_takt++;
-
-	ADCSRA |= (1 << ADSC); // rozpocznij przetwarzanie
-	float a=488.5/979;
-	float b=511-a*1023;
-	pomiar = a*ADC + b;
-		
+	
+	
+	odliczaniesek=true;	
 		
 //----------------------------------------------------------------------------------------------------
 //  obsluga grzalki 
@@ -247,7 +277,8 @@ ISR(TIMER1_COMPA_vect)
 				GRZALKA_0;
 				GRZALKA=0;
 				}
-			}
+			
+}
 }
 
 

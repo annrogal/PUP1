@@ -27,7 +27,7 @@
 #define LCD_RW_DIR		DDRD
 #define LCD_RW_PORT		PORTD
 #define LCD_RW_PIN		PIND
-#define LCD_RW			(1 << PD6)
+#define LCD_RW			(1 << PD7)
 
 #define LCD_E_DIR		DDRD
 #define LCD_E_PORT		PORTD
