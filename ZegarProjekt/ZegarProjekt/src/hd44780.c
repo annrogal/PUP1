@@ -184,6 +184,7 @@ void LCD_Home(void)
 	LCD_WriteCommand(HD44780_HOME);
 	_delay_ms(2);
 }
+
 //-------------------------------------------------------------------------------------------------
 //
 // Procedura inicjalizacji kontrolera HD44780.
