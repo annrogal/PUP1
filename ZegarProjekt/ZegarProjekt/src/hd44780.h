@@ -111,6 +111,10 @@ void LCD_GoTo(unsigned char, unsigned char);
 void LCD_Clear(void);
 void LCD_Home(void);
 void LCD_Initalize(void);
+void _LCD_OutNibble(unsigned char);
+unsigned char _LCD_InNibble(void);
+unsigned char _LCD_Read(void);
+void _LCD_Write(unsigned char);
 
 //-------------------------------------------------------------------------------------------------
 //

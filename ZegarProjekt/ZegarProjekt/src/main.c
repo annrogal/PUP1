@@ -42,7 +42,7 @@ int main(void) //petla glowna
 {
 	
 	DDRD=0xFF;
-	PORTD=0x42;
+	PORTD=0x40;
 	
 	
 	LCD_Initalize();
@@ -53,7 +53,7 @@ int main(void) //petla glowna
 	PINB = (1<<SET_HOUR | 1<<SET_MINUTE);
 	TCCR1B |= (1 << WGM12);								//ustawienie timera w tryb CTC,
 	//CTC-Clear On Timer Compare - automatyczne wyzerowanie po osi¹gniêciu po¿¹danej wartoœci
-	OCR1A =15625-1;								    //ustawienie wartoœci po¿¹danej na 1Hz 15625-1
+	OCR1A =625;								    //ustawienie wartoœci po¿¹danej na 1Hz 15625-1
 	TIMSK1 |= (1 << OCIE1A);							//Zezwolenie na przerwania dla CTC
 	TCCR1B |= (1 << CS12) | (1 << CS10);			    // ustawienie preskalera na 1024
 	
@@ -89,90 +89,80 @@ int main(void) //petla glowna
 	pomiar_sr=pomiar;
 	dtostrf(pomiar_sr, 8, 1, str);
 	LCD_GoTo(0,1);
+	LCD_WriteText("temp");
 	LCD_WriteText(str);
-	LCD_WriteText(" oC");
+	LCD_WriteText(" C");
 	//----------------------------------------pêtla-----------------------------------------------------
 	while(1)
 	{
 		if(rozjasnianie)
-		{
-			
-			if(hours==1)
+		{			
+			if(hours==7 && minutes<=30)
 			{
 				czas_2++;
-				if(czas_2>=2)
+				if(czas_2>=7 && OCR0A>=6)
 				{
 				OCR0A--;
 				czas_2=0;
 				}
-				if(OCR0A<=1)
+				if(OCR0A<=7)
 				{
 					OCR0A=0;
 				}
 			}
-			if(hours==20)
+			if(hours==20 && minutes<=30)
 			{
 				czas_2++;
-				if(czas_2>=2)
+				if(czas_2>=7 && OCR0A<=249)
 				{
 					OCR0A++;
 					czas_2=0;
 				}
-				if(OCR0A>=254)
+				if(OCR0A>=250)
 				{
 					OCR0A=255;
 				}
 			}
 			rozjasnianie=false;
 		}
-		//for(d = 0; d<255; d++)
-		//{
-		//OCR0A = d;
-		//_delay_ms(50);
-		//}
-		//for(d = 255; d; d--)
-		//{
-		//OCR0A = d;
-		//_delay_ms(50);
-		//}
 		//STEROWANIE PRZYCISKAMI
 		if(!(PINB & (1<<SET_HOUR)))   // ! - negacja
 		{
 			hours++;                 // ++ - zwiêksza o 1
 			if(hours > 23)
 			hours = 0;
-			_delay_ms(500);
+			_delay_ms(300);
 		}
 		if(!(PINB & (1<<SET_MINUTE)))
 		{
 			minutes++;
 			if(minutes > 59)
 			minutes = 0;
-			_delay_ms(500);
+			_delay_ms(300);
 		}
 		
 		//STEROWANIE ŒWIAT£EM
-		if(hours==0 && minutes==1)
+		if(hours==7 && minutes==30)
 		{
 			SW1_1;
 		}
-		if(hours==0 && minutes==3)
+		if(hours==19 && minutes==0)
 		{
 			SW1_0;
 		}
-		if(hours==0 && minutes==2)
+		if(hours==8 && minutes==0)
 		{
 			SW2_1;
 		}
-		if(hours==0 && minutes==4)
+		if(hours==19 && minutes==30)
 		{
 			SW2_0;
 		}
-		if(hours==0 && minutes==3)
+		if(hours==8 && minutes==30)
 		{
 			SW3_1;
 		}
-		if(hours==0 && minutes==5)
+		if(hours==20 && minutes==0)
 		{
 			SW3_0;
 		}
@@ -184,8 +174,9 @@ int main(void) //petla glowna
 			
 			dtostrf(pomiar_sr, 8, 1, str);
 			LCD_GoTo(0,1);
+			LCD_WriteText("temp");
 			LCD_WriteText(str);
-			LCD_WriteText(" oC");
+			LCD_WriteText(" C");
 			
 			pomiar_takt=0;
 		}
