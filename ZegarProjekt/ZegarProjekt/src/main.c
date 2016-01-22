@@ -9,7 +9,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-
+void LCD_update_time();
 unsigned char hours = 0;    // unsigned char - ca³kowite od 0 do 255;
 unsigned char minutes = 0;
 unsigned char seconds = 0;
@@ -25,6 +25,9 @@ int timer0=0;
 bool rozjasnianie=true;
 volatile uint8_t d=255;
 volatile uint8_t GRZALKA;
+volatile uint8_t p1=0;
+volatile uint8_t p2=0;
+
 
 #define SET_HOUR	PB0
 #define SET_MINUTE	PB1
@@ -49,11 +52,11 @@ int main(void) //petla glowna
 	LCD_GoTo(4,0);
 	LCD_WriteText(time);
 	
-	//-----------------------------------TIMER1---------------------------------------------------------
 	PINB = (1<<SET_HOUR | 1<<SET_MINUTE);
+	//-----------------------------------TIMER1---------------------------------------------------------	
 	TCCR1B |= (1 << WGM12);								//ustawienie timera w tryb CTC,
 	//CTC-Clear On Timer Compare - automatyczne wyzerowanie po osi¹gniêciu po¿¹danej wartoœci
-	OCR1A =625;								    //ustawienie wartoœci po¿¹danej na 1Hz 15625-1
+	OCR1A =15625;								    //ustawienie wartoœci po¿¹danej na 1Hz 15625
 	TIMSK1 |= (1 << OCIE1A);							//Zezwolenie na przerwania dla CTC
 	TCCR1B |= (1 << CS12) | (1 << CS10);			    // ustawienie preskalera na 1024
 	
@@ -93,6 +96,7 @@ int main(void) //petla glowna
 	LCD_WriteText(str);
 	LCD_WriteText(" C");
 	//----------------------------------------pêtla-----------------------------------------------------
+	
 	while(1)
 	{
 		if(rozjasnianie)
@@ -128,18 +132,31 @@ int main(void) //petla glowna
 		//STEROWANIE PRZYCISKAMI
 		if(!(PINB & (1<<SET_HOUR)))   // ! - negacja
 		{
+			p1=1;
+			_delay_ms(5);
+		}
+		if(PINB & (1<<SET_HOUR) && p1==1)
+		{
+			p1=0;
 			hours++;                 // ++ - zwiêksza o 1
 			if(hours > 23)
 			hours = 0;
-			_delay_ms(300);
+			
 		}
+		
 		if(!(PINB & (1<<SET_MINUTE)))
 		{
+			p2=1;
+			_delay_ms(5);
+		}
+		if(PINB & (1<<SET_HOUR) && p2==1)
+		{
+			p2=0;
 			minutes++;
 			if(minutes > 59)
 			minutes = 0;
-			_delay_ms(300);
 		}
+		
 		
 		//STEROWANIE ŒWIAT£EM
 		if(hours==7 && minutes==30)
@@ -176,12 +193,13 @@ int main(void) //petla glowna
 			LCD_GoTo(0,1);
 			LCD_WriteText("temp");
 			LCD_WriteText(str);
-			LCD_WriteText(" C");
+			LCD_WriteText(" C  ");
 			
 			pomiar_takt=0;
 		}
-		
+		LCD_update_time();
 	}
+	
 }
 
 void LCD_update_time()
@@ -227,7 +245,7 @@ ISR(TIMER1_COMPA_vect)
 	if(hours > 23)
 	hours = 0;
 	
-	LCD_update_time();
+	
 	
 	//POMIAR TEMPERATURY - ODLICZANIE
 	pomiar_takt++;
@@ -248,7 +266,7 @@ ISR(TIMER1_COMPA_vect)
 	else
 	czas_1=0;
 	
-	if(czas_1>=30)
+	if(czas_1>=120)
 	{
 		czas_1=0;
 		if(GRZALKA==0)
